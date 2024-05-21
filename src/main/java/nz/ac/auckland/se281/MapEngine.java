@@ -19,7 +19,6 @@ public class MapEngine {
     // add code here to create your data structures
     
     String[] countryField;
-    String[] adjacencyField;
     for (int c = 0; c < countries.size(); c++) {
       countryField = countries.get(c).split(",");
 
@@ -28,7 +27,19 @@ public class MapEngine {
       int countryFee = Integer.valueOf(countryField[2]);
       graph.addNode(new Country(countryName, countryContinent, countryFee));
 
-      adjacencyField = adjacencies.get(c).split(",");
+    }
+
+    String[] adjacencyField;
+    for (int a = 0; a < adjacencies.size(); a++) {
+      adjacencyField = adjacencies.get(a).split(",");
+
+      for (int i = 1; i < adjacencyField.length; i++) {
+        graph.addEdge(
+          graph.getCountryByName(adjacencyField[0]),
+          graph.getCountryByName(adjacencyField[i])
+      );
+      }
+
     }
 
   }

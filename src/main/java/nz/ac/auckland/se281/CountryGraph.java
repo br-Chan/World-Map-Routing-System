@@ -31,6 +31,26 @@ public class CountryGraph {
   public void removeNode(Country country) {
     adjNodes.remove(country);
 
+    for (Country key : adjNodes.keySet()) {
+      adjNodes.get(key).remove(country);
+    }
+
+  }
+
+  public void addEdge(Country country1, Country country2) {
+    addNode(country1);
+    addNode(country2);
+
+    adjNodes.get(country1).add(country2);
+    adjNodes.get(country2).add(country1);
+  }
+
+  public void removeEdge(Country country1, Country country2) {
+    if (adjNodes.containsKey(country1) && adjNodes.containsKey(country2) ){
+      adjNodes.get(country1).remove(country2);
+      adjNodes.get(country2).remove(country1);
+    }
+    
   }
 
 }
