@@ -2,8 +2,10 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 public class CountryGraph {
   private Map<Country, List<Country>> adjNodes;
@@ -51,6 +53,28 @@ public class CountryGraph {
       adjNodes.get(country2).remove(country1);
     }
     
+  }
+
+  public String getFastestRoute(Country sourceCountry, Country destinationCountry) {
+    if (sourceCountry.equals(destinationCountry)) {
+      return MessageCli.NO_CROSSBORDER_TRAVEL.getMessage();
+    }
+
+    List<Country> visited = new ArrayList<>();
+    Queue<Country> queue = new LinkedList<>();
+    queue.add(sourceCountry);
+    visited.add(sourceCountry);
+    while (!queue.isEmpty()) {
+      Country node = queue.poll();
+      for (Country n : adjNodes.get(node)) {
+        if (!visited.contains(n)) {
+          visited.add(n);
+          queue.add(n);
+        }
+      }
+    }
+    
+    return null;
   }
 
 }

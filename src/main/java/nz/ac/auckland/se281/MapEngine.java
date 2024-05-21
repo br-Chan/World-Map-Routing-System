@@ -50,6 +50,7 @@ public class MapEngine {
     Country country = null;
     while (country == null) {
       try {
+        MessageCli.INSERT_COUNTRY.printMessage();
         country = promptCountryName();
       } catch(InvalidCountryException e) {
         System.out.println(e.getMessage());
@@ -65,17 +66,41 @@ public class MapEngine {
   }
 
   /** this method is invoked when the user run the command route. */
-  public void showRoute() {}
+  public void showRoute() {
+    // TODO decide if should put these in the prompt method and put the try catch in CountryGraph.java
+    // Prompt user for source name.
+    Country sourceCountry = null;
+    while (sourceCountry == null) {
+      try {
+        MessageCli.INSERT_SOURCE.printMessage();
+        sourceCountry = promptCountryName();
+      } catch(InvalidCountryException e) {
+        System.out.println(e.getMessage());
+      }
+    }
+
+    // Prompt user for destination name.
+    Country destinationCountry = null;
+    while (destinationCountry == null) {
+      try {
+        MessageCli.INSERT_DESTINATION.printMessage();
+        destinationCountry = promptCountryName();
+      } catch(InvalidCountryException e) {
+        System.out.println(e.getMessage());
+      }
+    }
+
+    System.out.println(graph.getFastestRoute(sourceCountry, destinationCountry));
+  }
 
   /**
    * This method prompts the user for a country name.
    *
    * @return the Country instance in the graph whose name matches the input.
-   * @throws InvalidCountryException
+   * @throws InvalidCountryException if the country is not found in the graph.
    */
   public Country promptCountryName() throws InvalidCountryException {
     // Get the user to input a country name, and capitalise the first letter of each word.
-    MessageCli.INSERT_COUNTRY.printMessage();
     String input = Utils.capitalizeFirstLetterOfEachWord(
         Utils.scanner.nextLine()
     );
