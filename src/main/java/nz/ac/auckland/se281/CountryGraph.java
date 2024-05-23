@@ -142,7 +142,7 @@ public class CountryGraph {
                 continentsVisited.add(parentNode.getContinent());
               }
 
-              if (!parentNode.equals(destinationCountry)) {
+              if (!parentNode.equals(sourceCountry)) {
                 tax += parentNode.getTaxFee();
               }
               
