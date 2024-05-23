@@ -10,6 +10,10 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
+/**
+ * The graph class representing the map, in which countries make up the graph's
+ * nodes and there are routes between countries that make up the edges of the graph.
+ */
 public class CountryGraph {
   private Map<Country, List<Country>> adjacencyMap;
 
@@ -18,7 +22,14 @@ public class CountryGraph {
 
   }
 
+  /**
+   * Returns the country in the graph with the name input
+   *
+   * @param name name of the country to search for.
+   * @return the Country with the name input or null if not found.
+   */
   public Country getCountryByName(String name) {
+    // Iterate through all the country keys in the adjacency map.
     for (Country country : adjacencyMap.keySet()) {
       if (country.getName().equals(name)) {
         return country;
@@ -28,31 +39,59 @@ public class CountryGraph {
     return null;
   }
 
+  /**
+   * Adds the country to the adjacency map of the graph.
+   *
+   * @param country the Country to add to the graph.
+   */
   public void addNode(Country country) {
+    // Add the country to adjacency map keys with a new arraylist as the value.
     adjacencyMap.putIfAbsent(country, new ArrayList<>());
 
   }
 
+  /**
+   * Removes the country from the adjacency map of the graph.
+   * Also removes the country from all of the arraylists in the adjacency map.
+   *
+   * @param country the Country to remove from the graph.
+   */
   public void removeNode(Country country) {
     adjacencyMap.remove(country);
 
+    // Iterate through all keys and remove the country whenever it appears.
     for (Country key : adjacencyMap.keySet()) {
       adjacencyMap.get(key).remove(country);
     }
 
   }
 
+  /**
+   * Adds an edge between two countries.
+   *
+   * @param country1 the country that will contain the adjacency.
+   * @param country2 the country that will be listed in the adjacency.
+   */
   public void addEdge(Country country1, Country country2) {
+    // Add the countries if they haven't already been added.
     addNode(country1);
     addNode(country2);
 
+    // In country1's adjacency arraylist, add country2.
     adjacencyMap.get(country1).add(country2);
   }
 
+  /**
+   * Removes an edge between two countries.
+   *
+   * @param country1 the country that contains the adjacency.
+   * @param country2 the country that is listed in the adjacency.
+   */
   public void removeEdge(Country country1, Country country2) {
-    if (adjacencyMap.containsKey(country1) && adjacencyMap.containsKey(country2) ){
+    // If country1 is a key in the adjacency map,
+    // remove country2 from its adjacency arraylist.
+    if (adjacencyMap.containsKey(country1)){
       adjacencyMap.get(country1).remove(country2);
-      adjacencyMap.get(country2).remove(country1);
     }
     
   }
