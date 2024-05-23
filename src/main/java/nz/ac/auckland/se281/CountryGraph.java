@@ -87,9 +87,9 @@ public class CountryGraph {
           else if (neighbour.equals(destinationCountry)) {
             // We have reached the destination country.
 
-            // Create a list to construct the fastest route, and add the destination country.
             List<Country> fastestRoute = new ArrayList<>();
-            fastestRoute.add(destinationCountry);
+            List<String> continentsVisited = new ArrayList<>();
+            int tax = 0;
 
             // Starting from the neighbour country before the destiantion,
             // backtrack up through each country's parents until
@@ -97,14 +97,26 @@ public class CountryGraph {
             Country parentNode = neighbour;
             while (parentNode != null) {
               fastestRoute.add(parentNode);
+
+              String parentNodeContinent = parentNode.getContinent();
+              if (!continentsVisited.contains(parentNodeContinent)) {
+                continentsVisited.add(parentNode.getContinent());
+              }
+
+              if (!parentNode.equals(destinationCountry)) {
+                tax += parentNode.getTaxFee();
+              }
+              
               parentNode = parentMap.get(parentNode);
             }
 
+            // Return the required text to print to the user.
             Collections.reverse(fastestRoute);
+            Collections.reverse(continentsVisited);
             return(
                 MessageCli.ROUTE_INFO.getMessage(fastestRoute.toString()) +
-                "\n" + MessageCli.CONTINENT_INFO.getMessage() +
-                "\n" + MessageCli.TAX_INFO.getMessage()
+                "\n" + MessageCli.CONTINENT_INFO.getMessage(continentsVisited.toString()) +
+                "\n" + MessageCli.TAX_INFO.getMessage(Integer.toString(tax))
             );
 
           }
