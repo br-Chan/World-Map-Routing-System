@@ -47,7 +47,6 @@ public class CountryGraph {
     addNode(country2);
 
     adjacencyMap.get(country1).add(country2);
-    adjacencyMap.get(country2).add(country1);
   }
 
   public void removeEdge(Country country1, Country country2) {
@@ -76,8 +75,9 @@ public class CountryGraph {
     while (!queue.isEmpty()) {
         Country current = queue.poll();
 
-        // Iterate through each of the current country's neighbour.
+        // Iterate through each of the current country's neighbours.
         for (Country neighbour : adjacencyMap.get(current)) {
+
           // Add the neighbour to the 3 data structures if it hasn't been visited yet.
           if (!visitedSet.contains(neighbour)) {
               visitedSet.add(neighbour);
