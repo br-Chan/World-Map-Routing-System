@@ -23,7 +23,7 @@ public class CountryGraph {
   }
 
   /**
-   * Returns the country in the graph with the name input
+   * Returns the country in the graph with the name input.
    *
    * @param name name of the country to search for.
    * @return the Country with the name input or null if not found.
@@ -119,54 +119,54 @@ public class CountryGraph {
 
     // For every country we add to the queue...
     while (!queue.isEmpty()) {
-        Country current = queue.poll();
+      Country current = queue.poll();
 
-        // Iterate through each of the current country's neighbours.
-        for (Country neighbour : adjacencyMap.get(current)) {
+      // Iterate through each of the current country's neighbours.
+      for (Country neighbour : adjacencyMap.get(current)) {
 
-          // Add the neighbour to the 3 data structures if it hasn't been visited yet.
-          if (!visitedSet.contains(neighbour)) {
-              visitedSet.add(neighbour);
-              parentMap.put(neighbour, current);
-              queue.add(neighbour);
-          }
-          else if (neighbour.equals(destinationCountry)) {
-            // We have reached the destination country.
+        // Add the neighbour to the 3 data structures if it hasn't been visited yet.
+        if (!visitedSet.contains(neighbour)) {
+            visitedSet.add(neighbour);
+            parentMap.put(neighbour, current);
+            queue.add(neighbour);
+        }
+        else if (neighbour.equals(destinationCountry)) {
+          // We have reached the destination country.
 
-            List<Country> fastestRoute = new ArrayList<>();
-            List<String> continentsVisited = new ArrayList<>();
-            int tax = 0;
+          List<Country> fastestRoute = new ArrayList<>();
+          List<String> continentsVisited = new ArrayList<>();
+          int tax = 0;
 
-            // Starting from the neighbour country before the destiantion,
-            // backtrack up through each country's parents until
-            // the source country is reached at the start of the route.
-            Country parentNode = neighbour;
-            while (parentNode != null) {
-              fastestRoute.add(parentNode);
+          // Starting from the neighbour country before the destiantion,
+          // backtrack up through each country's parents until
+          // the source country is reached at the start of the route.
+          Country parentNode = neighbour;
+          while (parentNode != null) {
+            fastestRoute.add(parentNode);
 
-              String parentNodeContinent = parentNode.getContinent();
-              if (!continentsVisited.contains(parentNodeContinent)) {
-                continentsVisited.add(parentNode.getContinent());
-              }
-
-              if (!parentNode.equals(sourceCountry)) {
-                tax += parentNode.getTaxFee();
-              }
-              
-              parentNode = parentMap.get(parentNode);
+            String parentNodeContinent = parentNode.getContinent();
+            if (!continentsVisited.contains(parentNodeContinent)) {
+              continentsVisited.add(parentNode.getContinent());
             }
 
-            // Return the required text to print to the user.
-            Collections.reverse(fastestRoute);
-            Collections.reverse(continentsVisited);
-            return(
-                MessageCli.ROUTE_INFO.getMessage(fastestRoute.toString()) +
-                "\n" + MessageCli.CONTINENT_INFO.getMessage(continentsVisited.toString()) +
-                "\n" + MessageCli.TAX_INFO.getMessage(Integer.toString(tax))
-            );
-
+            if (!parentNode.equals(sourceCountry)) {
+              tax += parentNode.getTaxFee();
+            }
+            
+            parentNode = parentMap.get(parentNode);
           }
+
+          // Return the required text to print to the user.
+          Collections.reverse(fastestRoute);
+          Collections.reverse(continentsVisited);
+          return(
+              MessageCli.ROUTE_INFO.getMessage(fastestRoute.toString()) +
+              "\n" + MessageCli.CONTINENT_INFO.getMessage(continentsVisited.toString()) +
+              "\n" + MessageCli.TAX_INFO.getMessage(Integer.toString(tax))
+          );
+
         }
+      }
     }
 
     return null;

@@ -4,8 +4,11 @@ import java.util.List;
 
 /** This class is the main entry point. */
 public class MapEngine {
-  CountryGraph graph;
+  private CountryGraph graph;
 
+  /**
+   * Creates an instance of the MapEngine class, with a CountryGraph.
+   */
   public MapEngine() {
     // add other code here if you want
     graph = new CountryGraph();
