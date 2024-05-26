@@ -96,6 +96,13 @@ public class CountryGraph {
     
   }
 
+  /**
+   * Determines the fastest route from the input source country to the input destination country.
+   *
+   * @param sourceCountry country to start from.
+   * @param destinationCountry country to end at.
+   * @return String with relevant information about the fastest route.
+   */
   public String getFastestRoute(Country sourceCountry, Country destinationCountry) {
     if (sourceCountry.equals(destinationCountry)) {
       return MessageCli.NO_CROSSBORDER_TRAVEL.getMessage();
