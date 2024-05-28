@@ -38,9 +38,9 @@ public class MapEngine {
 
       for (int i = 1; i < adjacencyField.length; i++) {
         graph.addEdge(
-          graph.getCountryByName(adjacencyField[0]),
-          graph.getCountryByName(adjacencyField[i])
-      );
+            graph.getCountryByName(adjacencyField[0]),
+            graph.getCountryByName(adjacencyField[i])
+        );
       }
 
     }
@@ -70,7 +70,7 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command route. */
   public void showRoute() {
-    // TODO decide if should put these in the prompt method and put the try catch in CountryGraph.java
+    // TODO decide if should put these in the prompt method, try catch in CountryGraph
     // Prompt user for source name.
     Country sourceCountry = null;
     while (sourceCountry == null) {
