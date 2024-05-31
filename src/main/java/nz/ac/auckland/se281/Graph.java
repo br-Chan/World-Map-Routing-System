@@ -133,7 +133,7 @@ public class Graph {
         else if (neighbour.equals(destinationCountry)) {
           // We have reached the destination country.
 
-          List<Country> fastestRoute = new LinkedList<>();
+          List<Country> fastestRoute = new ArrayList<>();
           List<String> continentsVisited = new ArrayList<>();
           int tax = 0;
 
