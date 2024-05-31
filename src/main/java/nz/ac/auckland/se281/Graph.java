@@ -14,10 +14,10 @@ import java.util.Set;
  * The graph class representing the map, in which countries make up the graph's
  * nodes and there are routes between countries that make up the edges of the graph.
  */
-public class CountryGraph {
+public class Graph {
   private Map<Country, List<Country>> adjacencyMap;
 
-  public CountryGraph() {
+  public Graph() {
     this.adjacencyMap = new HashMap<>();
 
   }
@@ -133,7 +133,7 @@ public class CountryGraph {
         else if (neighbour.equals(destinationCountry)) {
           // We have reached the destination country.
 
-          List<Country> fastestRoute = new ArrayList<>();
+          List<Country> fastestRoute = new LinkedList<>();
           List<String> continentsVisited = new ArrayList<>();
           int tax = 0;
 

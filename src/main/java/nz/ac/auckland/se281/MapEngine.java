@@ -4,14 +4,14 @@ import java.util.List;
 
 /** This class is the main entry point. */
 public class MapEngine {
-  private CountryGraph graph;
+  private Graph graph;
 
   /**
-   * Creates an instance of the MapEngine class, with a CountryGraph.
+   * Creates an instance of the MapEngine class, with a Graph.
    */
   public MapEngine() {
     // add other code here if you want
-    graph = new CountryGraph();
+    graph = new Graph();
     loadMap(); // keep this mehtod invocation
   }
 
@@ -70,7 +70,7 @@ public class MapEngine {
 
   /** this method is invoked when the user run the command route. */
   public void showRoute() {
-    // TODO decide if should put these in the prompt method, try catch in CountryGraph
+    // TODO decide if should put these in the prompt method, try catch in Graph
     // Prompt user for source name.
     Country sourceCountry = null;
     while (sourceCountry == null) {
